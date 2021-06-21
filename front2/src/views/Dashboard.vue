@@ -18,7 +18,7 @@
       </div>
         <div class="content-table">
             <h4 class="spn_users">Users</h4>
-            <table class="table table-hover">
+            <table class="table table-striped">
                 <thead>
                 <tr>
                     <!-- <th scope="col">id</th> -->
@@ -129,6 +129,7 @@ body{
         left: 5%;
         width: 90%;
         border-radius: 10px;
+        padding:1%;
     }
     .spn_users{
         margin-left: 2%;

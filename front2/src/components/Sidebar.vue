@@ -1,9 +1,9 @@
 <template>
     <div class="siidebar">
-        <div class="title">
+        <div class="title" style="cursor: default;">
             System
         </div>
-        <div class="menu-items" >
+        <div class="menu-items" style="cursor:pointer;">
                 <div class="Link-container">
                     Users
                 </div>
