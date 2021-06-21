@@ -3,50 +3,53 @@
            <Sidebar />
           
             <div class="content">
-                <form action="" class="form-horizontal">
-                    <div class="form-group left">
-                       <label for="" class="control-label col-sm-2">Nombre</label>
-                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="nombre" id="nombre" v-model="form.Nombre">
-                       </div>
-                    </div>
-                    <div class="form-group left row">
-                      <div class="col">
-                            <label for="" class="control-label col-sm-3">Apellido</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="Apellido" id="Apellido" v-model="form.Apellido">
-                            </div>
+                <Header />
+                <div class="content-table">
+                  <form action="" class="form-horizontal">
+                      <div class="form-group left">
+                        <label for="" class="control-label col-sm-2">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="nombre" id="nombre" v-model="form.Nombre">
                         </div>
+                      </div>
+                      <div class="form-group left row">
                         <div class="col">
-                          <label for="" class="control-label col-sm-5">Email</label>
-                          <div class="col-sm-7">
-                              <input type="text" class="form-control" name="Email" id="Email" v-model="form.Email">
-                          </div>
-                        </div> 
-                    </div>
-                    <div class="form-group left row">
-                         <div class="col">
-                            <label for="" class="control-label col-sm-2">Direccion</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="Direccion" id="Direccion" v-model="form.Direccion">
-                            </div>
+                              <label for="" class="control-label col-sm-3">Apellido</label>
+                              <div class="col-sm-7">
+                                  <input type="text" class="form-control" name="Apellido" id="Apellido" v-model="form.Apellido">
+                              </div>
                           </div>
                           <div class="col">
-                              <label for="" class="control-label col-sm-2">Compañia</label>
+                            <label for="" class="control-label col-sm-5">Email</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="Email" id="Email" v-model="form.Email">
+                            </div>
+                          </div> 
+                      </div>
+                      <div class="form-group left row">
+                          <div class="col">
+                              <label for="" class="control-label col-sm-2">Direccion</label>
                               <div class="col-sm-7">
-                                  <input type="text" class="form-control" name="Compañia" id="Compañia" v-model="form.Compania">
+                                  <input type="text" class="form-control" name="Direccion" id="Direccion" v-model="form.Direccion">
                               </div>
-                        </div>
-                    </div>
-                    
+                            </div>
+                            <div class="col">
+                                <label for="" class="control-label col-sm-2">Compañia</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="Compañia" id="Compañia" v-model="form.Compania">
+                                </div>
+                          </div>
+                      </div>
+                      
 
 
-                    <div class="form-group">
-                      <button type="button" class="btn btn-primary" v-on:click="editar()" >Editar</button>
-                      <button type="button" class="btn btn-danger margen" v-on:click="eliminar()" >Eliminar</button>
-                      <button type="button" class="btn btn-dark margen" v-on:click="salir()"  >Salir</button>
-                    </div> 
-                </form>
+                      <div class="form-group">
+                        <button type="button" class="btn btn-primary mr-5" v-on:click="editar()" >Editar</button>
+                        <button type="button" class="btn btn-danger margen mr-5" v-on:click="eliminar()" >Eliminar</button>
+                        <button type="button" class="btn btn-dark margen mr-5" v-on:click="salir()"  >Salir</button>
+                      </div> 
+                  </form>
+                </div>
             </div>
           <!-- <Footer />   -->
         </div>
@@ -54,13 +57,13 @@
 </template>
 <script>
 import Sidebar from '@/components/Sidebar.vue';
-//import Footer from '@/components/Footer.vue';
+import Header from '@/components/Header.vue';
 import axios from 'axios';
 export default {
   name:"Editar",
   components:{
     Sidebar,
-    //Footer
+    Header
   },
   data:function(){
     return {
@@ -76,18 +79,21 @@ export default {
   },
   methods:{
       editar(){
+        if(this.form){
           axios.put("http://localhost:3000/"+this.form.id,this.form)
           .then( data =>{
               console.log(data);
+              this.$router.push("/");
           }).catch( err=>{
             console.log(err)
           })
+        }
       },
       salir(){
         this.$router.push("/");
       },
       eliminar(){
-        axios.delete("http://localhost:3000/"+this.form.id)
+        axios.delete("http://localhost:3000/" + this.form.id)
         .then( datos => {
             console.log(datos);
            this.$router.push("/");
@@ -99,13 +105,13 @@ export default {
       this.form.id = this.$route.params.id;
       axios.get("http://localhost:3000/"+ this.form.id)
       .then( datos => {
-        console.log(datos)
+        //console.log(datos)
         this.form.Nombre = datos.data.Nombre;
         this.form.Apellido = datos.data.Apellido;
         this.form.Email = datos.data.Email;
         this.form.Direccion = datos.data.Direccion;
         this.form.Compania = datos.data.Compania;
-        console.log(this.form);
+        //console.log(this.form);
 
       })
      
@@ -128,10 +134,17 @@ export default {
         widows: 100vw;
     }
     .content{
-       background-color: white;
+        background-color: #f5f6fa;
+        height: 1300px;
+        width: 100%;
+        
+    }
+    .content-table{
+        background-color: white;
         position: relative;
-        left: 25%;
-        width: 50%;
+        left: 5%;
+        width: 90%;
         border-radius: 10px;
+        padding:1%;
     }
 </style>

@@ -6,11 +6,7 @@
    
     
     <div class="content">
-        <div class="header">
-            <div id="header-item-menu" class="header_item">Dashboard</div>
-            <div id="header-user-menu" class="header_item">Daniel Páramo </div>
-            
-        </div>
+      <Header />
         <div class="div_btn">
             <button class="btn btn-primary" v-on:click="nuevo()">
                + Nuevo Usuario
@@ -50,6 +46,7 @@
 </template>
 <script>
 import Sidebar from "@/components/Sidebar.vue";
+import Header from "@/components/Header.vue";
 import axios from "axios";
 export default {
   name: "Dashboard",
@@ -59,7 +56,8 @@ export default {
     };
   },
   components: {
-    Sidebar
+    Sidebar,
+    Header
   },
   methods: {
     editar(id) {
@@ -87,32 +85,9 @@ body{
         background-color: white;
         block-size: max-content;
     }
-    .header{
-        width: 90%;
-        position: relative;
-        background-color: white;
-        height: 80px;
-        left:5%;
-        margin-bottom:20px;
-        vertical-align: center;
-        font-size: 1.5em;
-        color:gray
-    }
-    .header_item{
-        display: inline-block;
-        padding-top: 20px;
-    }
-    #header-item-menu{
-        text-align: left;
-        position: relative;
-        left: 2%;
-        width: 80%;
-    }
-    #header-user-menu{
-        width: 20%;
-    }
+   
     .content{
-        background-color: #e9e9e9;
+        background-color: #f5f6fa;
         height: 1300px;
         width: 100%;
         
@@ -136,5 +111,5 @@ body{
         text-align: left;
         
     }
-  
+    
 </style>
