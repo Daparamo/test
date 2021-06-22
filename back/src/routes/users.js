@@ -27,11 +27,10 @@ router.get('/:id', (req, res) => {
     })
 });
 
+// Create User
 router.post('/', (req, res) => {
     const { Nombre, Apellido, Email, Direccion, Compania } = req.body;
-    //const query = `insert into users(Nombre, Apellido, Email, Direccion, Compania) values (?,?,?,?,?)`,
 
-    //console.log(_obj.Nombre, _obj.Apellido, _obj.Email, _obj.Direccion, _obj.Compania)
     mysql_connection.query("insert into users(Nombre, Apellido, Email, Direccion, Compania) values (?,?,?,?,?)", [Nombre, Apellido, Email, Direccion, Compania], (err, rows, fields) => {
         if (!err) {
             res.json({ Status: 'User Saved' });
@@ -41,14 +40,12 @@ router.post('/', (req, res) => {
     })
 });
 
+// Update User
 router.put('/:id', (req, res) => {
     console.log(req)
     const { id } = req.params
     const { Nombre, Apellido, Email, Direccion, Compania } = req.body;
 
-    //const query = `insert into users(Nombre, Apellido, Email, Direccion, Compania) values (?,?,?,?,?)`,
-
-    //console.log(_obj.Nombre, _obj.Apellido, _obj.Email, _obj.Direccion, _obj.Compania)
     mysql_connection.query("update users set Nombre=?, Apellido=?, Email=?, Direccion=?, Compania=? where id=? ", [Nombre, Apellido, Email, Direccion, Compania, id], (err, rows, fields) => {
         if (!err) {
             res.json({ Status: 'User Saved' });
@@ -58,6 +55,7 @@ router.put('/:id', (req, res) => {
     })
 });
 
+// Delete User
 router.delete('/:id', (req, res) => {
     console.log(req)
     const { id } = req.params
