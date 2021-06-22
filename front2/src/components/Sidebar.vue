@@ -23,8 +23,9 @@ export default {
 
 <style scoped>
     .title{
-        font-size: 2em;
+        font-size: 2.2em;
         text-align: left;
+        font-weight: bold;
         margin:10%
     }
     .menu-items{

@@ -5,7 +5,7 @@
             <div class="content">
                 <Header />
                 <div class="content-table">
-                  <form action="" class="form-horizontal">
+                  <form action="" class="form-horizontal" @submit="checkForm">
                       <div class="form-group left">
                         <label for="" class="control-label col-sm-2">Nombre</label>
                         <div class="col-sm-10">
@@ -67,6 +67,7 @@ export default {
   },
   data:function(){
     return {
+      errors:[],
         form:{
           "id":"",
           "Nombre" : "",
@@ -79,14 +80,25 @@ export default {
   },
   methods:{
       editar(){
-        if(this.form){
+        if(this.checkForm()){
+         
           axios.put("http://localhost:3000/"+this.form.id,this.form)
           .then( data =>{
               console.log(data);
-              this.$router.push("/");
+              this.makeToast("Hecho", "Usuario Guardado", "success");
+              setTimeout(() => {
+                this.$router.push("/");
+              }, 1000);
+              //
           }).catch( err=>{
             console.log(err)
           })
+          
+        }
+        else{
+          for(let error in this.errors){
+            this.makeToast("Ö Ups! ", this.errors[error], "danger");
+          }
         }
       },
       salir(){
@@ -99,8 +111,50 @@ export default {
            this.$router.push("/");
         });
 
-      }
+      },
+
+      checkForm:function(){
+        this.errors = [];
+        if (!this.form.Nombre) {
+          this.errors.push("El Nombre es obligatorio.");
+        }
+        if (!this.form.Apellido) {
+          this.errors.push("El Apellido es obligatorio.");
+        }
+        if (!this.form.Email) {
+          this.errors.push('El correo electrónico es obligatorio.');
+        } else if (!this.validEmail(this.form.Email)) {
+          this.errors.push('El correo electrónico debe ser válido.');
+        }
+        if (!this.form.Direccion) {
+          this.errors.push("La Direccion es obligatoria.");
+        }
+        if (!this.form.Compania) {
+          this.errors.push("La Compañia es obligatoria.");
+        }
+        if (!this.errors.length) {
+          return true;
+        }
+        else{
+          return false
+        }
+      },
+      validEmail: function (email) {
+       let re = /^\S+@\S+\.\S+$/;
+       return re.test(email);
+      },
+      makeToast(titulo, texto, tipo) {
+      this.toastCount++;
+      this.$bvToast.toast(texto, {
+        title: titulo,
+        variant: tipo,
+        autoHideDelay: 5000,
+        appendToast: true,
+      });
+    },
+     
   },
+  
   mounted:function(){
       this.form.id = this.$route.params.id;
       axios.get("http://localhost:3000/"+ this.form.id)
@@ -112,39 +166,36 @@ export default {
         this.form.Direccion = datos.data.Direccion;
         this.form.Compania = datos.data.Compania;
         //console.log(this.form);
-
       })
-     
   }  
 }
 </script>
 <style scoped>
- .left{
-   text-align: left;
- };
- .margen{
-   margin-left: 15px;
-   margin-right: 15px;;
- }
- .dashboard{
-        display:grid;
-        grid-template-columns: 1fr 6fr;
-        background-color: white;
-        height: 100hv;
-        widows: 100vw;
-    }
-    .content{
-        background-color: #f5f6fa;
-        height: 1300px;
-        width: 100%;
-        
-    }
-    .content-table{
-        background-color: white;
-        position: relative;
-        left: 5%;
-        width: 90%;
-        border-radius: 10px;
-        padding:1%;
-    }
+.left {
+  text-align: left;
+}
+.margen {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  background-color: white;
+  height: 100hv;
+  widows: 100vw;
+}
+.content {
+  background-color: #f5f6fa;
+  height: 1300px;
+  width: 100%;
+}
+.content-table {
+  background-color: white;
+  position: relative;
+  left: 5%;
+  width: 90%;
+  border-radius: 10px;
+  padding: 1%;
+}
 </style>

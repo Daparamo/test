@@ -104,6 +104,7 @@ export default {
   name: "Nuevo",
   data: function () {
     return {
+      errors:[],
       form: {
         Nombre: "",
         Apellido: "",
@@ -119,13 +120,15 @@ export default {
   },
   methods: {
     guardar() {
-      if(this.form){
+       if(this.checkForm()){
         axios
           .post("http://localhost:3000/", this.form)
           .then((data) => {
             console.log(data);
             this.makeToast("Hecho", "Usuario creado", "success");
-            //this.$router.push("/");
+            setTimeout(() => {
+                this.$router.push("/");
+              }, 1000);
           })
           .catch((e) => {
             console.log(e);
@@ -133,11 +136,39 @@ export default {
           });
        }
        else{
-         console.log("debes llenar el formulario")
+         for(let error in this.errors){
+            this.makeToast("Ö Ups! ", this.errors[error], "danger");
+          }
        }
     },
     salir() {
       this.$router.push("/");
+    },
+    checkForm:function(){
+      this.errors = [];
+      if (!this.form.Nombre) {
+        this.errors.push("El Nombre es obligatorio.");
+      }
+      if (!this.form.Apellido) {
+        this.errors.push("El Apellido es obligatorio.");
+      }
+      if (!this.form.Email) {
+        this.errors.push('El correo electrónico es obligatorio.');
+      } else if (!this.validEmail(this.form.Email)) {
+        this.errors.push('El correo electrónico debe ser válido.');
+      }
+      if (!this.form.Direccion) {
+        this.errors.push("La Direccion es obligatoria.");
+      }
+      if (!this.form.Compania) {
+        this.errors.push("La Compañia es obligatoria.");
+      }
+      if (!this.errors.length) {
+        return true;
+      }
+      else{
+        return false
+      }
     },
     makeToast(titulo, texto, tipo) {
       this.toastCount++;
