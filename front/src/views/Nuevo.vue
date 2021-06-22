@@ -170,6 +170,10 @@ export default {
         return false
       }
     },
+    validEmail: function (email) {
+      let re = /^\S+@\S+\.\S+$/;
+      return re.test(email);
+    },
     makeToast(titulo, texto, tipo) {
       this.toastCount++;
       this.$bvToast.toast(texto, {
