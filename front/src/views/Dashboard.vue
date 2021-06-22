@@ -85,16 +85,17 @@ body{
     overflow: hidden!important;
 }
     .dashboard{
+      width: 100%;
         display:grid;
         grid-template-columns: 1fr 6fr;
-        background-color: white;
+        background-color: #f5f6fa;
         block-size: max-content;
     }
    
     .content{
         background-color: #f5f6fa;
-        height: 1300px;
-        width: 100%;
+        height: 1280px;
+        width: 95%;
         
     }
     .div_btn{
