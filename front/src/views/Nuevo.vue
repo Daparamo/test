@@ -127,7 +127,7 @@ export default {
             console.log(data);
             this.makeToast("Hecho", "Usuario creado", "success");
             setTimeout(() => {
-                this.$router.push("/");
+                this.$router.push("/dashboard");
               }, 1000);
           })
           .catch((e) => {
@@ -142,7 +142,7 @@ export default {
        }
     },
     salir() {
-      this.$router.push("/");
+      this.$router.push("/dashboard");
     },
     checkForm:function(){
       this.errors = [];

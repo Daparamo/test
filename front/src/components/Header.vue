@@ -18,7 +18,7 @@ export default {
   name: "Header",
   methods: {
     ir() {
-      this.$router.push("/");
+      this.$router.push("/dashboard");
     }
   }
 };

@@ -15,7 +15,7 @@ export default {
   name: "Sidebar",
   methods: {
     ir() {
-      this.$router.push("/");
+      this.$router.push("/dashboard");
     }
   }
 };

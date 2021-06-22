@@ -4,12 +4,13 @@ import Dashboard from '../views/Dashboard.vue';
 import Todos from '../views/Todos.vue';
 import Editar from '../views/Editar.vue';
 import Nuevo from '../views/Nuevo.vue';
+import Login from '../views/Login.vue';
 
 
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '/',
+        path: '/dashboard',
         name: 'Home',
         component: Dashboard
     },
@@ -27,6 +28,12 @@ const routes = [{
         path: '/todos/:id',
         name: 'Todos',
         component: Todos
+    },
+    {
+        path: '/',
+        name: 'Login',
+        component: Login
+
     }
 ]
 

@@ -87,7 +87,7 @@ export default {
               console.log(data);
               this.makeToast("Hecho", "Usuario Guardado", "success");
               setTimeout(() => {
-                this.$router.push("/");
+                this.$router.push("/dashboard");
               }, 1000);
               //
           }).catch( err=>{
@@ -102,13 +102,13 @@ export default {
         }
       },
       salir(){
-        this.$router.push("/");
+        this.$router.push("/dashboard");
       },
       eliminar(){
         axios.delete("http://localhost:3000/" + this.form.id)
         .then( datos => {
             console.log(datos);
-           this.$router.push("/");
+           this.$router.push("/dashboard");
         });
 
       },
